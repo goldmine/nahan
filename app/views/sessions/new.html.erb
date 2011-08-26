@@ -1,0 +1,21 @@
+<% title "登录" %>
+
+<p>Don't have an account? <%= link_to "Sign up!", signup_path %></p>
+
+<%= form_tag sessions_path do %>
+  <p>
+    <%= label_tag :login, "Username or Email Address" %><br />
+    <%= text_field_tag :login, params[:login] %>
+  </p>
+  <p>
+    <%= label_tag :password %><br />
+    <%= password_field_tag :password %>
+  </p>
+  <p><%= link_to "忘记密码?", new_password_reset_path %>
+  </p>  
+  <p>
+    <%= label_tag :remember_me %>  
+    <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+  </p>
+  <p><%= submit_tag "登录" %></p>
+<% end %>

@@ -1,0 +1,13 @@
+%h1
+  -title "密码重置"
+=form_for @user, :url => password_reset_path(params[:id]) do |f|
+  %p
+    =f.label :新的密码
+    =f.password_field :password
+  %p
+    =f.label :请确认新的密码
+    =f.password_field :password_confirmation
+  %p
+    =f.submit "提交"
+
+
