@@ -1,6 +1,7 @@
 # coding: utf-8
 
 class SessionsController < ApplicationController
+
   def new
   end
 
@@ -25,4 +26,12 @@ class SessionsController < ApplicationController
     #session[:user_id] = nil
     redirect_to root_url, :notice => "成功登出！"
   end
+
+
+  private
+  
+  def allow_to 
+    super :all, :all=> true
+  end
+
 end

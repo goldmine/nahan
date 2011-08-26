@@ -5,10 +5,15 @@ class User < ActiveRecord::Base
  
   # new columns need to be added here to be writable through mass assignment
   attr_accessible :username, :email, :password, :password_confirmation
-
   attr_accessor :password
+
   before_save :prepare_password
   before_create { generate_token(:auth_token) }
+  
+  has_many :roleuserships
+  has_many :roles, :through => :roleuserships
+
+
 
   validates_presence_of :username, :message => "用户名忘了输啦！"
   validates_uniqueness_of :username, :email, :allow_blank => true, :message => "用户名已经被占用啦！"
@@ -19,7 +24,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :message => "密码两次输入的不一样！"
   validates_length_of :password, :minimum => 6, :allow_blank => true, :message => "密码至少要六位！"
 
-  # login can be either username or email address
+  # login ----------------------------------------------------------
+  
   def self.authenticate(login, pass)
     user = find_by_username(login) || find_by_email(login)
     return user if user && user.password_hash == user.encrypt_password(pass)
@@ -41,6 +47,13 @@ class User < ActiveRecord::Base
     save!  
     UserMailer.password_reset(self).deliver  
   end 
+
+  #Role --------------------------------------------------------
+
+  def has_role?(role_name)
+    self.roles.find_by_name(role_name) ? true : false
+  end
+
 
   private
 

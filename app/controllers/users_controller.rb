@@ -1,7 +1,7 @@
 # coding: utf-8
 
 class UsersController < ApplicationController
-  before_filter :login_required, :except => [:new, :create]
+  #before_filter :login_required, :except => [:new, :create]
 
   def new
     @user = User.new
@@ -30,4 +30,15 @@ class UsersController < ApplicationController
       render :action => 'edit'
     end
   end
+
+
+  protected
+  
+  def allow_to
+      super :admin, :all => true
+      super :owner, :only => [:edit, :update]
+      super :all, :only => [:index, :show, :show_by_name, :new, :create]
+  end
+
+
 end

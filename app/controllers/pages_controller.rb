@@ -1,4 +1,8 @@
 class PagesController < ApplicationController
+  
+  prepend_before_filter :get_user
+  before_filter :get_page
+
   # GET /pages
   # GET /pages.xml
   def index
@@ -13,7 +17,7 @@ class PagesController < ApplicationController
   # GET /pages/1
   # GET /pages/1.xml
   def show
-    @page = Page.find(params[:id])
+    #@page = Page.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +38,7 @@ class PagesController < ApplicationController
 
   # GET /pages/1/edit
   def edit
-    @page = Page.find(params[:id])
+    #@page = Page.find(params[:id])
   end
 
   # POST /pages
@@ -56,7 +60,7 @@ class PagesController < ApplicationController
   # PUT /pages/1
   # PUT /pages/1.xml
   def update
-    @page = Page.find(params[:id])
+    #@page = Page.find(params[:id])
 
     respond_to do |format|
       if @page.update_attributes(params[:page])
@@ -72,7 +76,7 @@ class PagesController < ApplicationController
   # DELETE /pages/1
   # DELETE /pages/1.xml
   def destroy
-    @page = Page.find(params[:id])
+    #@page = Page.find(params[:id])
     @page.destroy
 
     respond_to do |format|
@@ -80,4 +84,25 @@ class PagesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+
+  protected
+
+  def get_page
+    @page = Page.find(params[:id]) if params[:id]
+  end
+
+  def get_user
+    #@user = User.find(params[:user_id]) if params[:user_id]
+    #@user = current_user
+  end
+  
+  def allow_to 
+    super :admin, :all => true
+    #super :owner, :all => true
+    super :all, :only => [:index, :show]
+    #super :user, :all => true
+  end
+
+
 end
