@@ -1,4 +1,14 @@
 Nahan::Application.routes.draw do
+
+
+  get "profiles/index"
+
+  get "profiles/:username" => 'profiles#show_by_name', :as => :show_user
+
+  get "profiles/edit"
+
+  get "profiles/update"
+
   match 'user/edit' => 'users#edit', :as => :edit_current_user
 
   match 'signup' => 'users#new', :as => :signup
@@ -8,9 +18,41 @@ Nahan::Application.routes.draw do
   match 'login' => 'sessions#new', :as => :login
 
   resources :sessions
-  resources :users
+  
+  resources :users do
+    resources :roles
+    resource :profile
+  end
+
   resources :password_resets
   resources :pages
+  
+  resources :sent do
+    member do
+     put 'fdelete'
+    end
+  end
+
+  resources :mailbox do
+    collection do
+      get 'trash'
+      get 'newmail'
+      get 'sent'
+    end
+  end
+
+  resources :messages do
+    member do
+      get 'reply'
+      get 'forward'
+      put 'undelete'
+      put 'fdelete'
+    end
+  end
+
+  get 'mailbox' => 'mailbox#index', :as => :inbox
+
+
   root :to => "pages#index"
 
   # The priority is based upon order of creation:

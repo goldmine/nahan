@@ -1,0 +1,20 @@
+<div id="mailbody">
+<div id="show1"><%=h @message.subject %></div>
+<div id="show2">
+<p><strong>发 件 人:</strong> <%=h @message.author.username %></p>
+<p><strong>收 件 人:</strong> <%=h @message.recipients.map(&:username).to_sentence %></p>
+<strong>收到时间:</strong> <%= @message.created_at %>
+</div>
+<div id="show4">
+  <%= link_to "回复", reply_message_path(@message) %> |
+  <%= link_to "转发", forward_message_path(@message) %> |
+    <% unless @message.deleted %>
+    <%= link_to "删除", message_path(@message), :method => "delete" %>
+  <% else %>
+    <%= link_to "恢复", undelete_message_path(@message), :method => "put" %> |
+    <%= link_to "永久删除", fdelete_message_path(@message), :method => "put" %>
+  <% end %>
+</div>
+<div id="show3"><%=h @message.body %></div>
+</div>
+

@@ -1,0 +1,14 @@
+<div id="mailbox_list">
+<div id = "mail"><%= current_user.username %></div>
+<div id = "mailbox">
+</div>
+<div id = "mail"><%= link_to "写新邮件", new_sent_path %></div> 
+<div id = "mailbox">
+  <ul>
+    <li><%= link_to "未读邮件", newmail_mailbox_index_path %></li>
+    <li><%= link_to "收件箱(#{current_user.received_messages.count(:conditions => ["deleted is NUll and is_hide is NULL"])})", inbox_path %></li>
+    <li><%= link_to "发件箱(#{current_user.sent_messages.count(:conditions => ["is_hide is NULL"])})", sent_mailbox_index_path %></li>
+    <li><%= link_to "垃圾箱(#{current_user.received_messages.count(:conditions => ["deleted = 1 and is_hide is NULL"])})", trash_mailbox_index_path %></li>
+  </ul>
+</div>
+</div>

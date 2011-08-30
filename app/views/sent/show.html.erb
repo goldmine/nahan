@@ -1,0 +1,12 @@
+
+<div id="mailbody">
+<div id="show1"><%=h(@message.subject) %></div>
+<div id="show2">
+<p><strong>收 件 人:</strong> <%= @message.recipients.map(&:username).to_sentence %></p>
+<strong>发送时间:</strong> <%= @message.created_at %>
+</div>
+<div id="show4">
+  <%= link_to "永久删除", fdelete_sent_path(@message), :method => "put" %>
+</div>
+<div id="show3"><%=h @message.body %></div>
+</div>

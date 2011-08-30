@@ -12,6 +12,14 @@ class User < ActiveRecord::Base
   
   has_many :roleuserships
   has_many :roles, :through => :roleuserships
+  has_one :profile
+
+
+  # Message
+  has_many :sent_messages,:class_name =>"Message", :foreign_key =>"author_id"
+  has_many :received_messages,:class_name =>"MessageCopy", :foreign_key =>"recipient_id" 
+  has_many :folders
+  before_create :build_inbox
 
 
 
@@ -54,6 +62,15 @@ class User < ActiveRecord::Base
     self.roles.find_by_name(role_name) ? true : false
   end
 
+  # Message-----------------------------------------------------
+  def inbox
+    folders.find_by_name("inbox")
+  end
+
+
+  def build_inbox
+    folders.build(:name => "inbox")
+  end
 
   private
 
@@ -63,6 +80,8 @@ class User < ActiveRecord::Base
       self.password_hash = encrypt_password(password)
     end
   end
+
+
 
 
 end

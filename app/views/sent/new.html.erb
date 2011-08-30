@@ -1,0 +1,29 @@
+
+    
+<div id="mailbody">
+    
+    <div id="show1">写新邮件</div>
+
+<% form_for :message, :class => "admin", :url => {:controller => "sent", :action => "create"} do |f| %>
+
+   <div  class="form admin">
+      <ul>
+        <li>
+        <label class="float">收件人:</label>
+        <%= f.text_field :to %>
+      </li>
+      <li>
+        <label class="float">标题:</label>
+        <%= f.text_field :subject %>
+      </li>
+      <li>
+        <label class="float">正文:</label>
+      <%= f.text_area :body %>
+      </li>
+      <li><label class="float"></label><%= submit_tag "提交",:id =>"but"%></li>
+</ul>
+</div>
+
+<% end %>
+
+</div>

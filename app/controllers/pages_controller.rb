@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class PagesController < ApplicationController
   
   prepend_before_filter :get_user
@@ -93,7 +95,7 @@ class PagesController < ApplicationController
   end
 
   def get_user
-    #@user = User.find(params[:user_id]) if params[:user_id]
+    #@user = Page.find(params[:id]).user if params[:id]
     #@user = current_user
   end
   
@@ -101,7 +103,7 @@ class PagesController < ApplicationController
     super :admin, :all => true
     #super :owner, :all => true
     super :all, :only => [:index, :show]
-    #super :user, :all => true
+    #super :user, :only => [:new, :create]
   end
 
 

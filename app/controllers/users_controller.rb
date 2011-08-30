@@ -2,6 +2,7 @@
 
 class UsersController < ApplicationController
   #before_filter :login_required, :except => [:new, :create]
+  prepend_before_filter :get_user
 
   def new
     @user = User.new
@@ -19,11 +20,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    #@user = current_user
   end
 
   def update
-    @user = current_user
+    #@user = current_user
     if @user.update_attributes(params[:user])
       redirect_to root_url, :notice => "Your profile has been updated."
     else
@@ -33,6 +34,10 @@ class UsersController < ApplicationController
 
 
   protected
+
+  def get_user
+    @user = current_user
+  end
   
   def allow_to
       super :admin, :all => true

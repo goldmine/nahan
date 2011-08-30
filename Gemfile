@@ -5,11 +5,12 @@ gem 'rails', '3.0.9'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql'
+gem 'mysql', '2.8.1'
 gem "haml"
 gem "haml-rails"
 gem "jquery-rails"
 gem "bcrypt-ruby", :require => 'bcrypt'
+gem "will_paginate", '3.0.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'
