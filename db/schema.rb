@@ -49,7 +49,15 @@ ActiveRecord::Schema.define(:version => 20110830060944) do
 
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
-    t.text     "about_me"
+    t.text     "desc"
+    t.string   "name"
+    t.string   "location"
+    t.string   "age"
+    t.string   "gender"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -72,6 +80,13 @@ ActiveRecord::Schema.define(:version => 20110830060944) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.boolean  "enabled",                :default => true
+    t.datetime "last_login_at"
+    t.integer  "points",                 :default => 0
+    t.integer  "v_count",                :default => 0
+    t.integer  "p_count",                :default => 0
+    t.integer  "s_count",                :default => 0
+    t.integer  "c_count",                :default => 0
+    t.string   "ip_address"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

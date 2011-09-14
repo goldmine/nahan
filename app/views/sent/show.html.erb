@@ -2,7 +2,7 @@
 <div id="mailbody">
 <div id="show1"><%=h(@message.subject) %></div>
 <div id="show2">
-<p><strong>收 件 人:</strong> <%= @message.recipients.map(&:username).to_sentence %></p>
+<p><strong>收 件 人:</strong> <%= @message.recipients.username %></p>
 <strong>发送时间:</strong> <%= @message.created_at %>
 </div>
 <div id="show4">

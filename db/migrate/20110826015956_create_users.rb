@@ -9,6 +9,13 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_reset_token
       t.datetime :password_reset_sent_at
       t.boolean :enabled, :default => true
+      t.datetime :last_login_at
+      t.integer :points, :default => '0'
+      t.integer :v_count, :default => '0'
+      t.integer :p_count, :default => '0'
+      t.integer :s_count, :default => '0'
+      t.integer :c_count, :default => '0'
+      t.string :ip_address
       t.timestamps
     end
      
