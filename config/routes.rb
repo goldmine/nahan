@@ -22,6 +22,7 @@ Nahan::Application.routes.draw do
   resources :users do
     resources :roles
     resource :profile
+    resources :friends
   end
 
   resources :password_resets

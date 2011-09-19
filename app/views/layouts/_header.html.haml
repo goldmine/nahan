@@ -2,9 +2,11 @@
   -if logged_in?  
     %h2 Welcome
     =current_user.username
+    =current_user.last_login_at
     =link_to "Edit profile", edit_current_user_path
     =link_to "Log out", logout_path
     =link_to "站内邮件", mailbox_index_path
+    =link_to "Friends", user_friends_url(current_user)
   -else
     =link_to "Sign up", signup_path
     =link_to "log in", login_path

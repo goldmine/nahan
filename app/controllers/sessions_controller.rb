@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.authenticate(params[:login], params[:password])
-    if user
+    if user && user.update_attribute(:last_login_at, Time.now)
       if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else

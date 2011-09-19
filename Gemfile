@@ -14,6 +14,7 @@ gem "will_paginate", '3.0.0'
 gem 'rmagick'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'paperclip'
+gem 'sass'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -1,0 +1,19 @@
+ 
+-profile ||= @me
+-type ||= 'friends'
+-size ||= 20
+-list = profile.send(type).find(:all, :limit => size) rescue []
+-total = profile.send(type).count
+-title = type == 'followings' ? 'Following' : type
+-with_friending ||= false
+
+
+
+-unless list.empty?
+  %h2
+  =title.titleize
+  =link_to '(see all)', user_friends_path(profile) if list.size > total		    
+  -list.each do |p|	
+    =link_to p.username, show_user_path(p.username) if with_friending
+
+ 

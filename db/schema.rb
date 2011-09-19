@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110830060944) do
+ActiveRecord::Schema.define(:version => 20110914093221) do
 
   create_table "folders", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,17 @@ ActiveRecord::Schema.define(:version => 20110830060944) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "friends", :force => true do |t|
+    t.integer  "inviter_id"
+    t.integer  "invited_id"
+    t.integer  "status",     :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "friends", ["invited_id", "inviter_id"], :name => "index_friends_on_invited_id_and_inviter_id", :unique => true
+  add_index "friends", ["inviter_id", "invited_id"], :name => "index_friends_on_inviter_id_and_invited_id", :unique => true
 
   create_table "message_copies", :force => true do |t|
     t.integer  "recipient_id"

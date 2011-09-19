@@ -22,6 +22,16 @@ class User < ActiveRecord::Base
   before_create :build_inbox
 
 
+  # Friends
+  has_many :friendships, :class_name  => "Friend", :foreign_key => 'inviter_id', :conditions => "status = #{Friend::ACCEPTED}"
+  has_many :follower_friends, :class_name => "Friend", :foreign_key => "invited_id", :conditions => "status = #{Friend::PENDING}"
+  has_many :following_friends, :class_name => "Friend", :foreign_key => "inviter_id", :conditions => "status = #{Friend::PENDING}"
+  
+  has_many :friends,   :through => :friendships, :source => :invited
+  has_many :followers, :through => :follower_friends, :source => :inviter
+  has_many :followings, :through => :following_friends, :source => :invited
+
+
 
   validates_presence_of :username, :message => "用户名忘了输啦！"
   validates_uniqueness_of :username, :email, :allow_blank => true, :message => "用户名已经被占用啦！"
