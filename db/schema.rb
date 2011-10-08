@@ -10,7 +10,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110914093221) do
+ActiveRecord::Schema.define(:version => 20110920022821) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.string   "publisher"
+    t.text     "desc"
+    t.text     "body"
+    t.string   "link"
+    t.integer  "category_id",     :default => 1
+    t.boolean  "voteble",         :default => true
+    t.boolean  "commentable",     :default => true
+    t.boolean  "pointable",       :default => true
+    t.boolean  "suggestiontable", :default => true
+    t.boolean  "visible",         :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "folders", :force => true do |t|
     t.string   "name"
@@ -54,6 +77,16 @@ ActiveRecord::Schema.define(:version => 20110914093221) do
     t.string   "title"
     t.text     "body"
     t.string   "permalink"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "news_id"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -25,6 +25,10 @@ Nahan::Application.routes.draw do
     resources :friends
   end
 
+  resources :categories
+  resources :articles
+
+
   resources :password_resets
   resources :pages
   
@@ -54,7 +58,7 @@ Nahan::Application.routes.draw do
   get 'mailbox' => 'mailbox#index', :as => :inbox
 
 
-  root :to => "pages#index"
+  root :to => "articles#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,39 @@
+#login-background
+  #content-container
+    %div.h20
+    #form-container 
+      #form-logo
+        %h3 注册呐喊网账号
+      -form_for(@user, :html => { :id => 'form-basic' }) do |f|
+        =f.error_messages
+        #form-header
+          %h2 注册呐喊网账号
+        %ul
+          %li
+            =f.label :username, "用户名"
+            %span.red
+              *
+            %div
+              =f.text_field :username, :class => 'form-input'
+          %li
+            =f.label :email, "邮箱地址"
+            %span.red
+              *            
+            %div
+              =f.text_field :email, :class => 'form-input'
+          %li
+            =f.label :password, "密码"
+            %span.red
+              *            
+            %div
+              =f.password_field :password, :class => 'form-input'
+          %li
+            =f.label :password_confirmation, "密码确认"
+            %span.red
+              *            
+            %div
+              =f.password_field :password_confirmation, :class => 'form-input'
+          %li
+            =f.submit "注册", :class => 'button' 
+    %div.h20
+

@@ -1,35 +1,38 @@
+@charset "UTF-8";
+/* 颜色定义 */
+/* 去除顶边的空白 */
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, input, p, blockquote, th, td, hr, div {
+  margin: 0;
+  padding: 0; }
+
 body {
-  background-color: #4b7399;
   font-family: Verdana, Helvetica, Arial;
-  font-size: 14px; }
+  font-size: 14px;
+  background: url(../images/red-masthead.png) repeat-x center top; }
 
 a {
   color: blue; }
   a img {
     border: none; }
 
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
 .clear {
   clear: both;
   height: 0;
   overflow: hidden; }
 
-#container {
-  width: 100%;
-  margin: 0 auto; }
+.h20 {
+  height: 37px; }
 
-#content {
-  width: 90%;
-  margin: 0 auto;
-  background-color: white;
-  padding: 20px 40px;
-  border: solid 1px black; }
-
-#header, #footer {
-  width: 90%;
-  margin: 0 auto;
-  background-color: #eeeeee;
-  padding: 20px 40px;
-  border: solid 1px black; }
+.red {
+  color: red;
+  margin: 0;
+  padding: 0; }
 
 #flash_notice, #flash_error, #flash_alert {
   padding: 5px 8px;
@@ -66,3 +69,138 @@ a {
     margin: 8px 10px; }
   .error_messages ul {
     margin: 0; }
+
+/* auto 可以使其居中 */
+#container {
+  margin: 0 auto; }
+
+#login-background, #signup-background {
+  width: 100%;
+  background-color: #eeeeee; }
+
+#content-container {
+  margin: 0 auto;
+  width: 980px; }
+
+/* Header------------------------------------------------------------------------Start */
+#header-container {
+  margin: 0 auto;
+  width: 980px;
+  height: 128px;
+  color: white; }
+  #header-container a {
+    color: #cccccc;
+    padding: 5px;
+    text-decoration: none; }
+  #header-container a:hover {
+    text-decoration: underline; }
+
+/* padding 也要加在height上 */
+#header-top {
+  height: 24px;
+  background-color: black;
+  padding: 8px;
+  font-size: 12px; }
+
+#header-top-logo {
+  height: 24px;
+  float: left; }
+
+#header-top-logo2 {
+  padding: 5px 10px;
+  float: left;
+  color: #cccccc; }
+
+#header-top-navi {
+  padding: 5px 10px;
+  float: right; }
+
+#header-center {
+  height: 60px; }
+
+#header-navi {
+  height: 28px;
+  background: none repeat scroll 0 0 black; }
+  #header-navi a {
+    color: white;
+    font: bold 13px "宋体";
+    letter-spacing: 4px; }
+  #header-navi li {
+    background: url("../images/nav-divider.png") no-repeat scroll left transparent;
+    list-style-type: none;
+    float: left;
+    padding: 4px 6px; }
+
+/* Header------------------------------------------------------------------------End */
+/* footer------------------------------------------------------------------------Start */
+#footer-background {
+  margin: 0 auto;
+  background: black; }
+
+#footer-container {
+  margin: 0 auto;
+  width: 980px;
+  height: 30px;
+  border-top: 2px solid #d6000f;
+  color: white;
+  padding-top: 10px;
+  font-size: 13px; }
+
+/* footer------------------------------------------------------------------------End */
+/* Form------------------------------------------------------------------------Start */
+#form-container {
+  margin: 0 auto;
+  background: white;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px;
+  width: 800px; }
+
+#form-logo {
+  background: #dedede;
+  padding: 10px; }
+  #form-logo h3 {
+    color: white;
+    font: bold "黑体"; }
+
+#form-header {
+  padding: 15px;
+  border-bottom: 1px dotted #cccccc; }
+
+#form-basic ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+#form-basic li {
+  margin: 20px; }
+
+#form-right {
+  margin: 40px;
+  background: url("../images/logo-2.gif") no-repeat center transparent;
+  width: 450px;
+  float: right;
+  height: 100px; }
+
+#form-right-content {
+  margin: 50px 0 0 30px; }
+
+.form-input {
+  border: 1px solid #c9c9c9;
+  font-size: 14px;
+  padding: 5px;
+  width: 200px;
+  vertical-align: middle; }
+
+#remember_me {
+  font-size: 12px; }
+
+.button {
+  background: #d6000f;
+  color: white;
+  padding: 5px;
+  width: 60px;
+  vertical-align: middle;
+  border: 1px solid #c9c9c9;
+  font-size: 14px; }

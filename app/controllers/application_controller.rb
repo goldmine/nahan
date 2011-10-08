@@ -86,4 +86,15 @@ class ApplicationController < ActionController::Base
     false
   end
 
+
+
+  # #设置字符集
+  # def set_charset
+  #   @headers["Content-Type"] = "text/html; charset=utf8"
+  #   @response.headers["Content-Type"] = "text/html; charset=utf8"
+  #   suppress(ActiveRecord::StatementInvalid) do
+  #     ActiveRecord::Base.connection.execute 'SET NAMES utf8'
+  #   end
+  # end
+
 end

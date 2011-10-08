@@ -2,7 +2,7 @@
 
 class SessionsController < ApplicationController
 
-  def new
+  def new    
   end
 
   def create

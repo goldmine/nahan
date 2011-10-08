@@ -1,0 +1,35 @@
+= form_for @article do |f|
+  -if @article.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@article.errors.count, "error")} prohibited this article from being saved:"
+      %ul
+        - @article.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :desc
+    = f.text_field :desc
+  .field
+    = f.label :author
+    = f.text_field :author
+  .field
+    = f.label :publisher
+    = f.text_field :publisher
+  .field
+    = f.label :link
+    = f.text_field :link
+  .field
+    = f.label :body
+    = f.text_area :body
+  .field
+    = f.radio_button(:voteble, true)
+    = f.label(:voteble_true, "可以投票")
+    = f.radio_button(:voteble, false)
+    = f.label(:voteble_false, "不可以投票")
+  .field
+    = f.label(:category, "类别")
+    = f.collection_select(:category_id, Category.all, :id, :name)
+  .actions
+    = f.submit 'Save'

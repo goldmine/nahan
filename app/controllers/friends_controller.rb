@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class FriendsController < ApplicationController
 	prepend_before_filter :get_user
 

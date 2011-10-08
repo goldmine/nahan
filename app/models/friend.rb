@@ -11,7 +11,7 @@ class Friend < ActiveRecord::Base
   
   ACCEPTED = 1
   PENDING = 0
-  FOLLOWING = 2
+  #FOLLOWING = 2
   
   
   def validate
