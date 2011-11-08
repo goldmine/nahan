@@ -1,6 +1,29 @@
-%h1
-	-title "密码重置"
-=form_tag password_resets_path, :method => :post do
-	=label_tag :邮件地址
-	=text_field_tag :email, params[:email]
-	=submit_tag "发送新密码链接"  
+#login-background
+  #content-container
+    %div.h20
+    #login-container 
+      #form-logo
+        %h3 密码重置
+      -form_tag password_resets_path, :method => :post, :id => "form-basic"  do
+        #form-header
+          %h2 密码重置
+        %div.left
+          %ul
+            %li
+              =label_tag :邮件地址
+              %div
+                =text_field_tag :email, params[:email], :class => 'form-input'
+            %li
+              =submit_tag "发送新密码链接", :class => 'button' 
+        %div
+          %ul
+            %li
+              =label_tag :验证码
+              %span.red
+                * 
+              %div 
+                =show_simple_captcha       
+        %div.clear
+    %div.h20
+
+

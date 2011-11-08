@@ -1,0 +1,4 @@
+- form_for @child, :url => comments_reply_url(@comment.id) do |f|
+  = f.label :body, "Body"
+  = f.text_area :body
+  = f.submit "Submit"

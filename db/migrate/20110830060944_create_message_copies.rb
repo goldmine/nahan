@@ -4,9 +4,9 @@ class CreateMessageCopies < ActiveRecord::Migration
       t.integer :recipient_id
       t.integer :folder_id
       t.integer :message_id
-      t.boolean :is_hide
-      t.boolean :is_read
-      t.boolean :deleted
+      t.boolean :is_hide, :default => false
+      t.boolean :is_read, :default => false
+      t.boolean :deleted, :default => false
 
       t.timestamps
     end

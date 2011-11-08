@@ -1,0 +1,46 @@
+#content-container
+  #profile-container
+    #full-container 
+      #form-header
+        %h1
+          -if current_user.avatar_file_name == nil
+            =image_tag("rabbit.gif", :class => 'avatar-48')
+          -else
+            =image_tag(current_user.avatar.url(:thumb), :class => 'avatar-48')
+          =current_user.username
+          =@foldername
+      %div.h10
+      %div.cols
+        %div.twocols-1.mail-1
+          = render :partial => "mailbox/mailbox_list"
+        %div.twocols-2.mail-2
+          %div.mail-body
+            %ul
+              %li
+                %strong
+                  发件人: 
+                =link_to @message.author.username, @message.author
+              %li
+                %strong
+                  收件人: 
+                =link_to @message.recipient.username, @message.recipient
+              %li
+                %strong
+                  收到时间 
+                =l @message.created_at
+              %li
+                = link_to "回复", reply_message_path(@message)
+                | 
+                = link_to "转发", forward_message_path(@message)
+                |
+                - unless @message.deleted
+                  = link_to "删除", message_path(@message), :method => "delete"
+                - else
+                  = link_to "恢复", undelete_message_path(@message), :method => "put"
+                |
+                = link_to "永久删除", fdelete_sent_path(@message), :method => "put"
+            %div
+              = @message.body
+        %div.clear
+      %div.h10
+    %div.h10

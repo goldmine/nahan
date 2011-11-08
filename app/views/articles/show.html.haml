@@ -1,6 +1,53 @@
-%p#notice= notice
+#main-background
+  #content-container
+    #sub-navi
+    #last-update
+      %h3 sysadmin 发表了 test test
+    #main-body
+      .h10
+      .article-1.left
+        .article-title
+          %h2
+            =@article.title
+        .article-info
+          =link_to @article.publisher, @article.link
+          =l @article.created_at
+          =@article.author
+        .article-body
+          =@article.body
+        .article-comment
+          =form_tag("/articles/#{@article.id}/comments", :method => :post) do
+            .div
+              .left
+                发表评论
+              .right
+                已有#{@article.comments_count}人参与
+                =link_to "全部", article_comments_path(@article)
+              .clear
+            -unless current_user         
+              .div
+                .left
+                  邮箱:
+                  =text_field_tag :email, params[:email]
+                  =link_to "注册帐号", signup_path
+                .left
+                  密码:
+                  =password_field_tag :password, params[:password]
+                  =link_to "忘记密码?", new_password_reset_path
+                .clear
+            .div
+              =text_area_tag :body, params[:body], :class => 'comment-text'
+            .div 
+              .right
+                -if current_user
+                  =submit_tag "发表评论", :class => 'button-100' 
+                -else
+                  =submit_tag "登录并发表评论", :class => 'button-100' 
+              .clear
+      .article-2.right
+        %h3 
+          =link_to "edit", edit_article_path(@article)
+          =link_to "test", article_comments_path(@article)
+      .clear
+    .div.h10
 
-
-= link_to 'Edit', edit_article_path(@article)
-\|
-= link_to 'Back', articles_path

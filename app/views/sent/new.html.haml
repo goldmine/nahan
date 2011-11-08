@@ -1,0 +1,36 @@
+#content-container
+  #profile-container
+    #full-container 
+      #form-header
+        %h1
+          -if current_user.avatar_file_name == nil
+            =image_tag("rabbit.gif", :class => 'avatar-48')
+          -else
+            =image_tag(current_user.avatar.url(:thumb), :class => 'avatar-48')
+          =current_user.username
+          =@foldername
+      %div.h10
+      %div.cols
+        %div.twocols-1.mail-1
+          = render :partial => "mailbox/mailbox_list"
+        %div.twocols-2.mail-2
+          - form_for :message, :html => { :class => 'mail-form' }, :url => {:controller =>"sent", :action => "create"} do |f|
+            %ul
+              %li
+                %label 收件人:
+                %p
+                  = f.text_field :to
+              %li
+                %label 标题:
+                %p
+                  = f.text_field :subject, :class =>"mail-subject"
+              %li
+                %label 正文:
+                %p
+                  = f.text_area :body
+              %li
+                %p
+                  = submit_tag "发送邮件", :class =>"button" 
+        %div.clear 
+      %div.h10
+    %div.h10    

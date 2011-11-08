@@ -16,6 +16,7 @@ gem 'rmagick'
 gem 'simple_captcha', :git => 'git://github.com/galetahub/simple-captcha.git'
 gem 'paperclip'
 gem 'sass'
+gem 'ancestry'
 
 # Use unicorn as the web server
 # gem 'unicorn'

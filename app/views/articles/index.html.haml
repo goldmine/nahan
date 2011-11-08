@@ -1,31 +1,107 @@
-%h1 Listing articles
+/ %script{:charset => "utf-8", :type => "text/javascript"}
+/   $(function(){
+/   $(".slideshow").slideshow({
+/   pauseSeconds: 4,
+/   height: 150,
+/   width: 250,
+/   });
+/   });
 
-%table
-  %tr
-    %th Title
-    %th Desc
-    %th Author
-    %th Publisher
-    %th Link
-    %th Category
-    %th "发表于"
-    %th
-    %th
-    %th
+#main-background
+  #content-container
+    #sub-navi
+    #last-update
+      %h3 sysadmin 发表了 test test
+    #main-body
+      .main-1.left
+        - @articles.each do |f|
+          .news-container
+            .news-subject
+              .div.left
+                =link_to f.category.name, f.category
+              %h2= link_to f.title, f
+            .news-desc
+              -unless f.photos.empty?
+                .news-desc-pic
+                  =link_to image_tag(f.photos.first.picture.url(:medium)), f.photos.first.picture.url(:original)
+                .news-desc-pic-text
+                  =f.desc
+                  =link_to f.publisher, f.link
+                  =l f.created_at
+              -else
+                .news-desc-text
+                  =f.desc
+                  =link_to f.publisher, f.link
+                  =l f.created_at
+              .clear
+            .news-info
+              .news-info-left
+                %h3 1134134
+                %div  
+                  参与讨论
+                  
+              .news-info-right
+                .news-info-right-1
+                  投票[
+                  %span 12345
+                  ]
+                  \-
+                  建议[
+                  %span 12345
+                  ]
+                  \-
+                  评论[
+                  %span 12345
+                  ]
+                  \-
+                  观点[
+                  %span 12345
+                  ]
 
-  - @articles.each do |article|
-    %tr
-      %td= article.title
-      %td= article.desc
-      %td= article.author
-      %td= article.publisher
-      %td= article.link
-      %td= article.category.name
-      %td= article.created_at
-      %td= link_to 'Show', article
-      %td= link_to 'Edit', edit_article_path(article)
-      %td= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete
+                                                       
+                .news-info-right-2
+                  =image_tag ("vote-icon.png")
+                  8月底结束，按照要求，各地摸底情况近期将对外公布
+                .news-info-right-2
+                  =image_tag ("vote-icon.png")
+                  8月底结束，按照要求，各地摸底情况近期将对外公布
+              .clear              
+            .clear  
+        
+      .main-2.left
+        %h3 right
+      .div.clear
+    .div.h10
 
-%br
 
-= link_to 'New Article', new_article_path
+/ %table
+/           %tr
+/             %th Title
+/             %th Desc
+/             %th Author
+/             %th Publisher
+/             %th Link
+/             %th Category
+/             %th "发表于"
+/             %th
+/             %th
+/             %th   
+/           - @articles.each do |article|
+/             %tr
+/               %td= article.title
+/               %td= article.desc
+/               %td= article.author
+/               %td= article.publisher
+/               %td= article.link
+/               %td= article.category.name
+/               %td= article.created_at
+/               %td= link_to 'Show', article
+/               %td= link_to 'Edit', edit_article_path(article)
+/               %td= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete
+/         %br
+/           =link_to 'New Article', new_article_path
+
+
+
+
+

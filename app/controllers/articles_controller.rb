@@ -16,6 +16,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1.xml
   def show
     @article = Article.find(params[:id])
+    @comment = @article.comments.build
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,6 +28,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new.xml
   def new
     @article = Article.new
+    5.times {@article.photos.build}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,9 +36,11 @@ class ArticlesController < ApplicationController
     end
   end
 
+
   # GET /articles/1/edit
   def edit
     @article = Article.find(params[:id])
+    5.times {@article.photos.build} if @article.photos.empty?
   end
 
   # POST /articles
@@ -86,8 +90,9 @@ class ArticlesController < ApplicationController
 
 protected
   def allow_to
-    super :user, :all => true
-    super :non_user, :only => :index
+    super :admin, :all => true
+    super :user, :only => [:index, :show]
+    super :non_user, :only => [:index, :show]
   end
 
   

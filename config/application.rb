@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
@@ -43,5 +45,9 @@ module Nahan
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # My configure
+    config.nahan_cities = ["安徽省", "澳门", "北京市", "福建省", "甘肃省", "广东省", "广西省", "贵州省", "海南省", "河北省", "河南省", "黑龙江省", "湖北省", "湖南省", "吉林省", "江苏省", "江西省", "辽宁省", "内蒙古自治区", "宁夏回族自治区", "青海省", "山东省", "山西省", "陕西省", "上海市", "四川省", "台湾省", "天津市", "西藏自治区", "香港", "新疆自治区", "云南省", "浙江省", "重庆市", "台湾"]
+    
   end
 end

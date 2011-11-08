@@ -13,7 +13,7 @@ class SentController < ApplicationController
   
   def create
     @user =User.find_by_username(params[:message][:to])
-    puts @user
+    puts @user.inspect
     if @user == nil or @user == current_user
       flash[:error] ="不能发送至本人或非本站用户！请检查收件人地址！"
       render :action =>"new"

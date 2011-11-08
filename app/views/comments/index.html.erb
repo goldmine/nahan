@@ -1,0 +1,87 @@
+<div id="main-background">
+ <div id="content-container">
+   <div id="main-body">
+     <div class="comment-title" >
+        <span><%= @article.category.name %></span><%= @article.title %><%= link_to "[原文]", @article %>
+     </div>
+     <div class="comment-1 left" >
+       <div class="comment-info">
+          <div class="comment-info-left left">
+              <strong>评论</strong>(<span>11456</span>条 楼王<span>17</span>层)
+              <strong>投票</strong>(<span>11</span>条 <span>17</span>人参与 <%= link_to "查看" %>)
+              <strong>观点</strong>(<span>250</span>条 <%= link_to "查看" %>)
+              <strong>建议</strong>(<span>11</span>条 <%= link_to "查看" %>)
+          </div>
+          <div class="comment-info-right right">
+              <div class="button">
+                发表评论
+              </div>
+          </div>
+         <div class="clear"></div>
+       </div>
+
+        <% for p in @comments %>
+            <div class="comment-list" >
+              <div class="comment-list-left">
+                <div>
+                  <% if p.user and p.user.avatar_file_name == nil %>
+                    <%=image_tag("rabbit.gif", :class => 'avatar-32 left') %>
+                  <% else %>
+                    <%=image_tag(p.user.avatar.url(:thumb), :class => 'avatar-32 left') if p.user %>
+                  <% end %>
+                </div>
+                <div>
+                    <% if current_user %>
+                        <%=link_to "+关注" %>
+                        <%=link_to "发消息", new_sent_path( :id => p.user ) %>
+                    <% else %>
+                        <%=link_to "+关注" %>
+                    <% end %>
+                </div>
+              </div>
+
+              <div class="comment-list-right">
+                  <div class="comment-list-right-1">
+                    <div class="left">
+                        <%= link_to p.user.username, p.user if p.user%> <%= p.user.gender if p.user%>，<%= p.user.age if p.user%>，<%= p.user.location if p.user%>
+                    </div>
+                    <div class="right">
+                        <%= l p.created_at%>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="comment-list-right-2">
+                    <% unless p.is_root? %>
+                        <% p.ancestors.count.times do %>
+                          <div class="comment-list-child" >
+                          <% end -%>
+                        <% for pp in p.ancestors %>
+                           <div class="left">
+                             <%= link_to pp.user.username, pp.user if pp.user%>的评论：
+                           </div>
+                           <div class="right"> <%= l pp.created_at %> </div>
+                           <div class="clear"></div>
+                           <div class="comment-list-child-body" >
+                              <%= pp.body %>
+                           </div>
+                           <div class="comment-list-action" > <%= pp.depth + 1 %>楼</div>
+                           <div class="comment-list-action"> <%= link_to "顶", comments_ding_url(:comment_id => p.id) %><span>[<%= p.ding_count %>]</span></div>
+                           <div class="comment-list-action" > <%= link_to "回复", new_article_comment_path(@article, :comment_id => pp.id) %> </div>
+                           <div class="clear"></div>
+                           </div>
+                        <% end %>
+                    <% end %>
+                   
+                   <div> <%= p.body %> </div>
+                   <div class="comment-list-action"> <%= link_to "顶", comments_ding_url(:comment_id => p.id) %><span>[<%= p.ding_count %>]</span></div>
+                   <div class="comment-list-action"> <%= link_to "回复", new_article_comment_path(@article,:comment_id => p.id) %> </div>
+                   <div class="clear"></div>   
+                  </div>
+              </div>
+              <div class="clear"></div>
+          </div>
+       <% end %>
+     </div>
+   </div>
+ </div>
+</div>

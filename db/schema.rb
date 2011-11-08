@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110920022821) do
+ActiveRecord::Schema.define(:version => 20111104021513) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -19,12 +19,14 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
     t.text     "desc"
     t.text     "body"
     t.string   "link"
-    t.integer  "category_id",     :default => 1
+    t.integer  "category_id"
+    t.string   "submitted_by"
     t.boolean  "voteble",         :default => true
     t.boolean  "commentable",     :default => true
     t.boolean  "pointable",       :default => true
     t.boolean  "suggestiontable", :default => true
     t.boolean  "visible",         :default => true
+    t.integer  "comments_count",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,6 +36,18 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.integer  "article_id"
+    t.integer  "ding_count", :default => 0
+    t.string   "ancestry"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["ancestry"], :name => "index_comments_on_ancestry"
 
   create_table "folders", :force => true do |t|
     t.string   "name"
@@ -53,13 +67,22 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
   add_index "friends", ["invited_id", "inviter_id"], :name => "index_friends_on_invited_id_and_inviter_id", :unique => true
   add_index "friends", ["inviter_id", "invited_id"], :name => "index_friends_on_inviter_id_and_invited_id", :unique => true
 
+  create_table "links", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.string   "url"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "message_copies", :force => true do |t|
     t.integer  "recipient_id"
     t.integer  "folder_id"
     t.integer  "message_id"
-    t.boolean  "is_hide"
-    t.boolean  "is_read"
-    t.boolean  "deleted"
+    t.boolean  "is_hide",      :default => false
+    t.boolean  "is_read",      :default => false
+    t.boolean  "deleted",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -68,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
     t.integer  "author_id"
     t.string   "subject"
     t.text     "body"
-    t.boolean  "is_hide"
+    t.boolean  "is_hide",    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,7 +105,8 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
   end
 
   create_table "photos", :force => true do |t|
-    t.integer  "news_id"
+    t.integer  "article_id"
+    t.string   "comment"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
@@ -93,15 +117,6 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
 
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
-    t.text     "desc"
-    t.string   "name"
-    t.string   "location"
-    t.string   "age"
-    t.string   "gender"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -114,6 +129,15 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
     t.integer "user_id"
     t.integer "role_id"
   end
+
+  create_table "simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "simple_captcha_data", ["key"], :name => "idx_key"
 
   create_table "users", :force => true do |t|
     t.string   "username"
@@ -131,6 +155,16 @@ ActiveRecord::Schema.define(:version => 20110920022821) do
     t.integer  "s_count",                :default => 0
     t.integer  "c_count",                :default => 0
     t.string   "ip_address"
+    t.text     "desc"
+    t.string   "name"
+    t.string   "education"
+    t.string   "location"
+    t.string   "age"
+    t.string   "gender"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

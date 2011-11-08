@@ -4,7 +4,8 @@
 class User < ActiveRecord::Base
  
   # new columns need to be added here to be writable through mass assignment
-  attr_accessible :username, :email, :password, :password_confirmation
+  attr_accessible :username, :email, :password, :password_confirmation, :age, :location, :gender, :education, :name, :desc, :avatar
+
   attr_accessor :password
 
   before_save :prepare_password
@@ -13,7 +14,10 @@ class User < ActiveRecord::Base
   has_many :roleuserships
   has_many :roles, :through => :roleuserships
   has_one :profile
-
+  has_many :comments
+  accepts_nested_attributes_for :profile, :allow_destroy => true
+  
+  has_attached_file :avatar, :styles => { :medium => "100x100>", :thumb => "48>", :tiny =>"15>" }
 
   # Message
   has_many :sent_messages,:class_name =>"Message", :foreign_key =>"author_id"
@@ -24,12 +28,13 @@ class User < ActiveRecord::Base
 
   # Friends
   has_many :friendships, :class_name  => "Friend", :foreign_key => 'inviter_id', :conditions => "status = #{Friend::ACCEPTED}"
-  has_many :follower_friends, :class_name => "Friend", :foreign_key => "invited_id", :conditions => "status = #{Friend::PENDING}"
-  has_many :following_friends, :class_name => "Friend", :foreign_key => "inviter_id", :conditions => "status = #{Friend::PENDING}"
-  
-  has_many :friends,   :through => :friendships, :source => :invited
-  has_many :followers, :through => :follower_friends, :source => :inviter
+  has_many :follower_friends, :class_name => "Friend", :foreign_key => "invited_id", :conditions => "status = #{Friend::PENDING}", :order => 'created_at DESC'
+  has_many :following_friends, :class_name => "Friend", :foreign_key => "inviter_id", :conditions => "status = #{Friend::PENDING}", :order => 'created_at DESC'
+
+  # has_many :friends,   :through => :friendships, :source => :invited
+  has_many :fans, :through => :follower_friends, :source => :inviter
   has_many :followings, :through => :following_friends, :source => :invited
+
 
 
 
@@ -81,6 +86,8 @@ class User < ActiveRecord::Base
   def build_inbox
     folders.build(:name => "inbox")
   end
+
+  # friends----------------------------------------------------
 
   private
 

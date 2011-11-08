@@ -16,6 +16,16 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :s_count, :default => '0'
       t.integer :c_count, :default => '0'
       t.string :ip_address
+      t.text :desc
+      t.string :name
+      t.string :education
+      t.string :location
+      t.string :age
+      t.string :gender
+      t.string :avatar_file_name
+      t.string :avatar_content_type
+      t.integer :avatar_file_size
+      t.datetime :avatar_updated_at
       t.timestamps
     end
      

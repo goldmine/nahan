@@ -1,7 +1,7 @@
 #login-background
   #content-container
     %div.h20
-    #form-container 
+    #login-container 
       #form-logo
         %h3 登录呐喊网
       -form_tag sessions_path, :id => "form-basic"  do
@@ -23,7 +23,7 @@
                 =label_tag :remember_me, "下次自动登录 | "
                 =link_to "忘记密码?", new_password_reset_path
             %li
-              =submit_tag "登录", :class => 'button' 
+              =submit_tag "登录", :class => 'button-100' 
         #form-right
           #form-right-content
             还没有呐喊网帐号？

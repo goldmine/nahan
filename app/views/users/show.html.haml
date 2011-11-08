@@ -1,0 +1,118 @@
+#content-container
+  #profile-container
+    #profile-header
+      #avatar
+        %h1
+          -if @user.avatar_file_name == nil
+            =image_tag("rabbit.gif", :class => 'avatar-48')
+          -else
+            =image_tag(@user.avatar.url(:thumb), :class => 'avatar-48')
+          =@user.username
+        %ul
+          -if current_user
+            -if current_user == @user
+              %li.button
+                =link_to "更新个人信息", edit_current_user_path
+              %li.button
+                =link_to "密码重置", edit_current_user_path
+              %li.button
+                =link_to "更新头像", avatar_path
+            -else
+              %li.button
+                -if @current_user.followings.include? @user
+                  =link_to "取消关注", user_friend_path(:user_id => @current_user, :id => @user ), :method => 'delete'
+                -else
+                  =link_to "加关注", user_friends_path( :user_id => @user ), :method => 'post'
+              %li.button
+                =link_to "发消息", new_sent_path( :id => @user )               
+          -else
+            %li
+              你还没有登录？
+            %li.button
+              =link_to "点这里登录!", login_path
+        %div.clear
+    #profile-info
+      %div.cols
+        %div.threecols-1.profile-1 
+          -if @user.name            
+            %dl
+              %dt
+                姓名
+              %dd
+                =@user.name        
+          %dl                
+            %dt
+              性别
+            %dd
+              =@user.gender
+          %dl
+            %dt
+              年纪            
+            %dd
+              =@user.age
+          %dl
+            %dt
+              文化               
+            %dd            
+              =@user.education
+          %dl
+            %dt
+              所在地              
+            %dd
+              =@user.location
+          %dl
+            %dt
+              上次登录              
+            %dd
+              #{l @user.last_login_at}
+          %dl
+            %dt
+              加入时间              
+            %dd
+              #{l @user.created_at}
+        %div.threecols-3.profile-2
+          %ul
+            %li
+              %a
+                %strong
+                  100
+                  %span
+                    投票
+            %li
+              %a
+                %strong
+                  100
+                  %span
+                    观点
+            %li
+              %a
+                %strong
+                  100
+                  %span
+                    评论
+            %li
+              %a
+                %strong
+                  100
+                  %span
+                    建议
+          %div.h10.clear
+          #following
+            目前关注#{h @user.followings.count }个用户，且有#{h @user.fans.count }个粉丝
+            =link_to "全部→", user_friends_path(@user)
+          %div.h10.clear
+          #following-list
+            %ul
+              -for f in @followings  do
+                %li
+                  -if f.avatar_file_name == nil
+                    =image_tag("rabbit.gif", :class => 'avatar-32')
+                  -else
+                    =image_tag(f.avatar.url(:thumb), :class => 'avatar-32')
+                  %div
+                    =link_to f.username, f
+                
+               
+        %div.clear
+
+    #profile-activity

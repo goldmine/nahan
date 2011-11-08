@@ -1,10 +1,60 @@
-%h1 My Network	
-
-=link_to("&larr; Back to #{h @profile.f}'s Profile", @user) unless @me
-=link_to('&larr; Back to Dashboard', @me) if @me
-	
-
-
-=render :partial => 'friends/list', :locals => {:type => 'friends', :with_friending => true, :size => nil}
-=render :partial => 'friends/list', :locals => {:type => 'followers', :with_friending => true, :size => nil}
-=render :partial => 'friends/list', :locals => {:type => 'followings', :with_friending => true, :size => nil}
+#content-container
+  #profile-container
+    #profile-header
+      #avatar
+        %h1
+          -if @user.avatar_file_name == nil
+            =image_tag("rabbit.gif", :class => 'avatar-48')
+          -else
+            =image_tag(@user.avatar.url(:thumb), :class => 'avatar-48')
+          =@user.username
+        %ul
+          -unless current_user
+            %li
+              你还没有登录？
+            %li.button
+              =link_to "点这里登录!", login_path
+        %div.clear
+    %div.cols
+      #friends_list
+        %div.twocols-1.friend-1
+          %h3            
+            =raw(" #{ @followings.empty? ? @user.username + "没有关注的网友" : @user.username + "关注的网友(" + @followings.count.to_s + ")" }")
+          %ul
+            -for f in @followings do
+              %li
+                %div.list
+                  -if f.avatar_file_name == nil
+                    =image_tag("rabbit.gif", :class => 'avatar-32 left')
+                  -else
+                    =image_tag(f.avatar.url(:thumb), :class => 'avatar-32 left')
+                  %div.left.list-info                      
+                    =link_to f.username, f
+                    %p
+                      =raw("#{f.gender},#{f.age},#{f.location}") 
+                  %div.list-info.right
+                    =raw("关注于:#{l Friend.following_time(@user, f)}")
+                    %p
+                      -if current_user == @user
+                        =link_to "取消关注", user_friend_path(:user_id => @current_user, :id => f ), :method => 'delete' 
+                        =link_to "发消息", new_sent_path( :id => f )
+                  %div.clear
+        %div.twocols-2.friend-2
+          %h3            
+            =raw(" #{ @fans.empty? ? @user.username + "没有粉丝" : @user.username + "的粉丝(" + @fans.count.to_s + ")" }")
+          %ul
+            -for f in @fans do
+              %li
+                %div.list
+                  -if f.avatar_file_name == nil
+                    =image_tag("rabbit.gif", :class => 'avatar-32 left')
+                  -else
+                    =image_tag(f.avatar.url(:thumb), :class => 'avatar-32 left')
+                  %div.left.list-info                      
+                    =link_to f.username, f
+                    %p
+                      =raw("#{f.gender},#{f.age},#{f.location}") 
+                  %div.list-info.right
+                    =raw("被关注于:#{l Friend.fans_time(@user, f)}") 
+                  %div.clear        
+        %div.clear

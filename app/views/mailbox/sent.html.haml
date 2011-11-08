@@ -1,0 +1,38 @@
+#content-container
+  #profile-container
+    #full-container 
+      #form-header
+        %h1
+          -if current_user.avatar_file_name == nil
+            =image_tag("rabbit.gif", :class => 'avatar-48')
+          -else
+            =image_tag(current_user.avatar.url(:thumb), :class => 'avatar-48')
+          =current_user.username
+          =@foldername
+      %div.h10
+      %div.cols
+        %div.twocols-1.mail-1
+          = render :partial => "mailbox/mailbox_list"
+        %div.twocols-2.mail-2
+          %table.mail-list
+            %thead
+              %tr
+                %th 收件人
+                %th 标题
+                %th 发送时间
+                %th 动作
+            - if @messages
+              - for message in @messages
+                %tbody
+                  %tr
+                    - unless message.is_hide
+                      %td{:width => "14%"}= link_to h(message.recipient.username), message.recipient
+                      %td{:width => "52%"}= link_to h(message.subject), sent_path( message)
+                      %td{:width => "22%"}= l message.created_at
+                      %td{:width => "12%"}
+                        = link_to "永久删除", fdelete_message_path(message), :method => "put"
+        %div.clear
+        %div.h10
+          %div.right
+            = will_paginate @messages
+    %div.h10

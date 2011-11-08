@@ -1,0 +1,32 @@
+#content-container
+  #profile-container
+    #full-container 
+      #form-header
+        %h1
+          -if @current_user.avatar_file_name == nil
+            =image_tag("rabbit.gif", :class => 'avatar-48')
+          -else
+            =image_tag(@current_user.avatar.url(:thumb), :class => 'avatar-48')
+            =@current_user.username
+          上传头像
+      %div.h10
+      #avatar-left
+        =form_for @user, :html => { :multipart => true, :id => 'form-basic' } do |f|
+          %ul
+            %li
+              =f.label :avatar, "头像"
+              %span.red
+                *
+              %div
+                =f.file_field :avatar, :class => 'form-input'
+            %li
+              =f.submit "更新", :class => 'button-100'
+      #avatar-right
+        -if @user.avatar_file_name == nil
+          %img{:src => "../images/rabbit.gif", :class => 'avatar'}
+        -else
+          =link_to image_tag(@user.avatar.url(:medium), :class => 'avatar'), @user.avatar.url(:original)
+        %div.h10
+        现在的头像
+      %div.clear
+%div.h10

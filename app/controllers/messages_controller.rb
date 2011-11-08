@@ -1,6 +1,7 @@
 # coding: utf-8
 
 class MessagesController < ApplicationController
+
   
   def show
     @message = current_user.received_messages.find(params[:id])
@@ -47,5 +48,5 @@ class MessagesController < ApplicationController
   def allow_to
     super :user, :all => true
   end
-
+  
 end

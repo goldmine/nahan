@@ -1,6 +1,7 @@
 # coding: utf-8
 
 class ApplicationController < ActionController::Base
+  include SimpleCaptcha::ControllerHelpers
 	helper_method :current_user, :logged_in?, :login_required, :redirect_to_target_or_default, :store_target_location
 	before_filter :allow_to, :current_user, :check_permissions
 
@@ -11,6 +12,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by_auth_token(cookies[:auth_token]) if cookies[:auth_token]
+  end
+
+  def set_current_user(user)
+    if !user.nil?
+      cookies[:auth_token] = user.auth_token
+      @current_user = user
+    end
   end
 
   def logged_in?

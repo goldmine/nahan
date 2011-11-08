@@ -1,39 +1,105 @@
 #login-background
   #content-container
     %div.h20
-    #form-container 
+    #signup-container 
       #form-logo
         %h3 注册呐喊网账号
-      -form_for(@user, :html => { :id => 'form-basic' }) do |f|
+      =form_for(@user, :html => { :id => 'form-basic' }) do |f|
         =f.error_messages
         #form-header
+          %div.right
+            已经有账号了？
+            =link_to "点这里登录!", login_path
           %h2 注册呐喊网账号
-        %ul
-          %li
-            =f.label :username, "用户名"
-            %span.red
-              *
-            %div
-              =f.text_field :username, :class => 'form-input'
-          %li
-            =f.label :email, "邮箱地址"
-            %span.red
-              *            
-            %div
-              =f.text_field :email, :class => 'form-input'
-          %li
-            =f.label :password, "密码"
-            %span.red
-              *            
-            %div
-              =f.password_field :password, :class => 'form-input'
-          %li
-            =f.label :password_confirmation, "密码确认"
-            %span.red
-              *            
-            %div
-              =f.password_field :password_confirmation, :class => 'form-input'
-          %li
-            =f.submit "注册", :class => 'button' 
+        %div.h10
+        %div.left
+          %ul
+            %li
+              =f.label :username, "用户名"
+              %span.red
+                *
+              %div
+                =f.text_field :username, :class => 'form-input'
+            %li
+              =f.label :email, "邮箱地址"
+              %span.red
+                *            
+              %div
+                =f.text_field :email, :class => 'form-input'
+            %li
+              =f.label :password, "密码"
+              %span.red
+                *            
+              %div
+                =f.password_field :password, :class => 'form-input'
+            %li
+              =f.label :password_confirmation, "密码确认"
+              %span.red
+                *            
+              %div
+                =f.password_field :password_confirmation, :class => 'form-input'
+            %li
+              =f.label "验证码"
+              %span.red
+                * 
+              %div 
+                =show_simple_captcha
+            %li
+              =f.submit "注册", :class => 'button-100'
+        #signup-right
+          %ul
+            %li
+              =f.label :gender, "性别"
+              %span.red
+                *            
+              %div.form-select-container
+                =f.radio_button :gender, "男", :checked => true
+                =f.label :gender_male, "男", :class => 'form-select'
+                =f.radio_button :gender, "女"
+                =f.label :gender_female, "女", :class => 'form-select'
+                =f.radio_button :gender, "不详"
+                =f.label :gender_unknown, "不详", :class => 'form-select'
+            %li
+              =f.label :age, "年龄"
+              %span.red
+                *            
+              %div.form-select-container
+                =f.radio_button :age, "儿童"
+                =f.label :age_1, "儿童(0-12)"
+                =f.radio_button :age, "少年"
+                =f.label :age_2, "少年(12-18)"
+                =f.radio_button :age, "青年", :checked => true
+                =f.label :age_3, "青年(18-40)"
+                =f.radio_button :age, "中年"
+                =f.label :age_3, "中年(40-65)"
+                =f.radio_button :age, "老年"
+                =f.label :age_3, "老年(65以上)"
+            %li
+              =f.label :education, "教育"
+              %span.red
+                *            
+              %div.form-select-container
+                =f.radio_button :education, "自学"
+                =f.label :education_1, "自学成才"
+                =f.radio_button :education, "小学"
+                =f.label :education_2, "小学"
+                =f.radio_button :education, "中学"
+                =f.label :education_3, "中学"
+                =f.radio_button :education, "大学", :checked => true
+                =f.label :education_3, "大学"
+                =f.radio_button :education, "研究生"
+                =f.label :education_3, "研究生"
+            %li
+              =f.label :location, "所在地"
+              %span.red
+                *            
+              %div.form-select-container
+                =f.select(:location, options_for_select(Nahan::Application.config.nahan_cities, "上海市"))
+                =f.radio_button :location, "国外"
+                =f.label :location_2, "国外"
+                =f.radio_button :location, "火星"
+                =f.label :location_3, "火星"
+                  
+        %div.clear
     %div.h20
 

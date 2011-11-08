@@ -6,11 +6,12 @@ class PasswordResetsController < ApplicationController
 
   def create
   	user = User.find_by_email(params[:email])
-  		if user
+  		if simple_captcha_valid? & user
   			user.send_password_reset   
   			redirect_to root_url, :notice => "密码重置的链接已经发送到您的邮箱！" 
   		else
   			flash.now[:alert] = "该用户不存在，请检查邮件地址是否正确！" 
+        flash.now[:alert] = "验证码错误." if !simple_captcha_valid?
   			render 'new'
   		end	
   end

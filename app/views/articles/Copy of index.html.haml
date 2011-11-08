@@ -1,0 +1,68 @@
+%script{:charset => "utf-8", :type => "text/javascript"}
+  $(function(){
+  $(".slideshow").slideshow({
+  pauseSeconds: 4,
+  height: 150,
+  width: 250,
+  });
+  });
+
+#main-background
+  #content-container
+    #sub-navi
+    #last-update
+      %h3 sysadmin 发表了 test test
+    #main-body
+      .main-1.left
+        - @articles.each do |f|
+          .news-container
+            .news-subject
+              .div.left
+                =link_to f.category.name, f.category
+              %h2= link_to f.title, f
+            .news-desc
+              -unless f.photos.empty?
+                .slideshow.left
+                  -f.photos.each do |ff|
+                    =link_to image_tag(ff.picture.url(:medium)), ff.picture.url(:original)
+              .news-desc-text
+                #{f.desc}#{link_to "[详细]", f}
+            .clear  
+        
+      .main-2.left
+        %h3 right
+      .div.clear
+    .div.h10
+
+
+/ %table
+/           %tr
+/             %th Title
+/             %th Desc
+/             %th Author
+/             %th Publisher
+/             %th Link
+/             %th Category
+/             %th "发表于"
+/             %th
+/             %th
+/             %th   
+/           - @articles.each do |article|
+/             %tr
+/               %td= article.title
+/               %td= article.desc
+/               %td= article.author
+/               %td= article.publisher
+/               %td= article.link
+/               %td= article.category.name
+/               %td= article.created_at
+/               %td= link_to 'Show', article
+/               %td= link_to 'Edit', edit_article_path(article)
+/               %td= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete
+/         %br
+/           =link_to 'New Article', new_article_path
+
+
+
+
+

@@ -4,7 +4,7 @@ class CreateMessages < ActiveRecord::Migration
       t.integer :author_id
       t.string :subject
       t.text :body
-      t.boolean :is_hide
+      t.boolean :is_hide, :default => false
 
       t.timestamps
     end

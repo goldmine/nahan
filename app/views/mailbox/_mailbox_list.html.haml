@@ -1,0 +1,7 @@
+#mailbox_list
+  %ul
+    %li= link_to "写新邮件", new_sent_path
+    %li= link_to "未读邮件", newmail_mailbox_index_path
+    %li= link_to "收件箱(#{current_user.received_messages.count(:conditions => ["deleted is false and is_hide is false"])})", inbox_path
+    %li= link_to "发件箱(#{current_user.sent_messages.count(:conditions => ["is_hide is false"])})", sent_mailbox_index_path
+    %li= link_to "垃圾箱(#{current_user.received_messages.count(:conditions => ["deleted = true and is_hide is false"])})", trash_mailbox_index_path

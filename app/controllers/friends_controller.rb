@@ -5,7 +5,8 @@ class FriendsController < ApplicationController
 
   def create
     @invited = User.find(params[:user_id])
-      if Friend.make_friends(@me, @invited)
+      #if Friend.make_friends(@me, @invited)
+      if Friend.add_follower(@me, @invited)
         flash[:notice] = "Successfully created..."
         redirect_to user_friends_url(@me)
         else
@@ -16,15 +17,21 @@ class FriendsController < ApplicationController
   
   
   def destroy
-    @inviter = User.find(params[:user_id])
-    @invited = User.find(params[:id])
-    Friend.reset @inviter, @invited
-    flash[:notice] = "Successfully deleted..."
+    @owner = User.find(params[:user_id])
+    @target = User.find(params[:id])
+    if Friend.find_by_inviter_id_and_invited_id( @owner.id, @target ).destroy
+    #Friend.reset @inviter, @invited
+      flash[:notice] = "Successfully deleted..."
+    else
+      flash[:notice] = "Can not delete...."
+    end
     redirect_to user_friends_url(@me)
   end
   
   
   def index
+    @fans = @user.fans if @user
+    @followings = @user.followings if @user
   end
 
 protected

@@ -1,15 +1,19 @@
 #header-background
   #header-container
     #header-top
-      #header-top-logo 
-        %img{:src => "../images/logo.gif"}
+      #header-top-logo
+        =image_tag("logo.gif")
       #header-top-logo2 做中国最好的新闻评论网!
       #header-top-navi
         %p
           -if logged_in?  
             欢迎
             =current_user.username
-            =link_to "我的呐喊网", edit_current_user_path
+            / -if current_user.avatar_file_name == nil
+            /   =image_tag("rabbit.gif", :class => 'avatar-10')
+            / -else
+            /   =image_tag(@current_user.avatar.url(:tiny), :class => 'avatar')
+            =link_to "我的呐喊网", current_user
             =link_to "登出", logout_path
             =link_to "站内邮件", mailbox_index_path
             =link_to "好友", user_friends_url(current_user)

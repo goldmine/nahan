@@ -1,35 +1,151 @@
-= form_for @article do |f|
-  -if @article.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@article.errors.count, "error")} prohibited this article from being saved:"
-      %ul
-        - @article.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :desc
-    = f.text_field :desc
-  .field
-    = f.label :author
-    = f.text_field :author
-  .field
-    = f.label :publisher
-    = f.text_field :publisher
-  .field
-    = f.label :link
-    = f.text_field :link
-  .field
-    = f.label :body
-    = f.text_area :body
-  .field
-    = f.radio_button(:voteble, true)
-    = f.label(:voteble_true, "可以投票")
-    = f.radio_button(:voteble, false)
-    = f.label(:voteble_false, "不可以投票")
-  .field
-    = f.label(:category, "类别")
-    = f.collection_select(:category_id, Category.all, :id, :name)
-  .actions
-    = f.submit 'Save'
+#login-background
+  #content-container
+    %div.h20
+    #signup-container 
+      #form-logo
+        %h3 发表新闻
+      =form_for(@article, :html => { :multipart => true, :id => 'form-basic' }) do |f|
+        -if @article.errors.any?
+          #error_explanation
+          %h2= "#{pluralize(@article.errors.count, "error")} prohibited this article from being saved:"
+          %ul
+            - @article.errors.full_messages.each do |msg|
+              %li= msg
+        #form-header
+          %h3 发表新闻
+        %div.h10
+        %div.left
+          %ul
+            %li
+              =f.label :title
+              %div
+                =f.text_field :title, :class => 'form-input'
+            %li
+              =f.label :desc
+              %div
+                =f.text_field :desc, :class => 'form-input'
+            %li
+              =f.label :author
+              %div
+                =f.text_field :author, :class => 'form-input'
+            %li
+              =f.label :publisher
+              %div
+                =f.text_field :publisher, :class => 'form-input'
+            %li
+              =f.label :submitted_by
+              %div
+                =f.text_field :submitted_by, :class => 'form-input'
+            %li
+              =f.label :link
+              %div
+                =f.text_field :link, :class => 'form-input'
+            %li
+              =f.label :body
+              %div
+                =f.text_area :body, :class => 'form-input'
+            %li
+              =f.submit 'Save'
+        #signup-right
+          %li
+            = f.radio_button(:voteble, true)
+            = f.label(:voteble_true, "可以投票")
+            = f.radio_button(:voteble, false)
+            = f.label(:voteble_false, "不可以投票")
+          %li
+            = f.radio_button(:commentable, true)
+            = f.label(:commentable_true, "可以评论")
+            = f.radio_button(:commentable, false)
+            = f.label(:commentable_false, "不可以评论")
+          %li
+            = f.radio_button(:suggestiontable, true)
+            = f.label(:suggestiontable_true, "可以建议")
+            = f.radio_button(:suggestiontable, false)
+            = f.label(:suggestiontable_false, "不可以建议")
+          %li
+            = f.radio_button(:pointable, true)
+            = f.label(:pointable_true, "可以发表观点")
+            = f.radio_button(:pointable, false)
+            = f.label(:pointable_false, "不可以发表观点")
+          %li
+            = f.label(:category, "类别")
+            = f.collection_select(:category_id, Category.all, :id, :name)
+          -f.fields_for :photos do |b|
+            -if b.object.new_record?
+              %li
+                =b.label :photo
+                =b.file_field :picture
+          -f.fields_for :photos do |b|
+            -unless b.object.new_record?
+              %li
+                =link_to image_tag(b.object.picture.url(:thumb)), b.object.picture.url(:original)
+                =b.check_box :_destroy
+        %div.clear
+    %div.h20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/ = form_for @article do |f|
+/   -if @article.errors.any?
+/     #error_explanation
+/       %h2= "#{pluralize(@article.errors.count, "error")} prohibited this article from being saved:"
+/       %ul
+/         - @article.errors.full_messages.each do |msg|
+/           %li= msg
+/   .field
+/     = f.label :title
+/     = f.text_field :title
+/   .field
+/     = f.label :desc
+/     = f.text_field :desc
+/   .field
+/     = f.label :author
+/     = f.text_field :author
+/   .field
+/     = f.label :publisher
+/     = f.text_field :publisher
+/   .field
+/     = f.label :submitted_by
+/     = f.text_field :submitted_by
+/   .field
+/     = f.label :link
+/     = f.text_field :link
+/   .field
+/     = f.label :body
+/     = f.text_area :body
+/   .field
+/     = f.radio_button(:voteble, true)
+/     = f.label(:voteble_true, "可以投票")
+/     = f.radio_button(:voteble, false)
+/     = f.label(:voteble_false, "不可以投票")
+/   .field
+/     = f.radio_button(:commentable, true)
+/     = f.label(:commentable_true, "可以评论")
+/     = f.radio_button(:commentable, false)
+/     = f.label(:commentable_false, "不可以评论")
+/   .field
+/     = f.radio_button(:suggestiontable, true)
+/     = f.label(:suggestiontable_true, "可以建议")
+/     = f.radio_button(:suggestiontable, false)
+/     = f.label(:suggestiontable_false, "不可以建议")
+/   .field
+/     = f.radio_button(:pointable, true)
+/     = f.label(:pointable_true, "可以发表观点")
+/     = f.radio_button(:pointable, false)
+/     = f.label(:pointable_false, "不可以发表观点")
+/   .field
+/     = f.label(:category, "类别")
+/     = f.collection_select(:category_id, Category.all, :id, :name)
+/   .actions
+/     = f.submit 'Save'

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class Friend < ActiveRecord::Base
   
   belongs_to :inviter, :class_name => 'User'
@@ -73,14 +75,25 @@ class Friend < ActiveRecord::Base
     
     
     def reset(owner, target)
+      #Friend.find(:conditions => {:inviter_id => owner.id, :invited_id => target.id}).destroy
       #don't need a transaction here. if either fail, that's ok
-      begin
-        Friend.find(:first, :conditions => {:inviter_id => owner.id, :invited_id => target.id}).destroy
-        Friend.find(:first, :conditions => {:inviter_id => target.id, :invited_id => owner.id, :status => ACCEPTED}).update_attribute(:status, PENDING)
-      rescue Exception
-        return true # we need something here for test coverage
-      end
-      true
+      # begin
+      #   Friend.find(:first, :conditions => {:inviter_id => owner.id, :invited_id => target.id}).destroy
+      #   Friend.find(:first, :conditions => {:inviter_id => target.id, :invited_id => owner.id, :status => ACCEPTED}).update_attribute(:status, PENDING)
+      # rescue Exception
+      #   return true # we need something here for test coverage
+      # end
+      # true
+    end
+
+    def following_time(owner, target) #我什么时候关注他
+      @friend = Friend.find_by_inviter_id_and_invited_id( owner.id, target.id )
+      return @friend.created_at if @friend  
+    end
+
+    def fans_time(owner, target)#我什么时候成为他粉丝
+      @friend = Friend.find_by_inviter_id_and_invited_id( target.id, owner.id )
+      return @friend.created_at if @friend
     end
   
   

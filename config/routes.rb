@@ -1,9 +1,14 @@
 Nahan::Application.routes.draw do
+  get "comments/index"
+
+  match 'comments/:id/reply' => 'comments#reply', :as => :comments_reply
+  
+  match "comments/ding" => 'comments#ding', :as => :comments_ding
 
 
-  get "profiles/index"
+  get "users/avatar" => 'users#avatar', :as => :avatar
 
-  get "profiles/:username" => 'profiles#show_by_name', :as => :show_user
+  # get "users/:username" => 'users#show_by_name', :as => :show_by_name
 
   get "profiles/edit"
 
@@ -23,10 +28,13 @@ Nahan::Application.routes.draw do
     resources :roles
     resource :profile
     resources :friends
+    resources :comments
   end
 
   resources :categories
-  resources :articles
+  resources :articles do
+    resources :comments
+  end
 
 
   resources :password_resets

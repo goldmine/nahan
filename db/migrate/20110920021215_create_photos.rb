@@ -1,7 +1,7 @@
 class CreatePhotos < ActiveRecord::Migration
   def self.up
     create_table :photos do |t|
-      t.integer :news_id
+      t.integer :article_id
       t.string :comment
       t.string  :picture_file_name
       t.string  :picture_content_type
